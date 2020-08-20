@@ -8,7 +8,7 @@ const REDIS_CONF = {
 let MYSQL_CONF = {
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: 'wojiaoWH.110',
   port: '3306',
   database: 'zzmusic'
 }
