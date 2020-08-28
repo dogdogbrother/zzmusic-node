@@ -10,7 +10,8 @@ let MYSQL_CONF = {
   user: 'root',
   password: 'wojiaoWH.110',
   port: '3306',
-  database: 'zzmusic'
+  database: 'zzmusic',
+  charset: 'utf8mb4'
 }
 
 if (isProd) {
@@ -19,7 +20,8 @@ if (isProd) {
     user: 'root',
     password: 'Mysql_123456',
     port: '3306',
-    database: 'zzmusic'
+    database: 'zzmusic',
+    charset: 'utf8mb4'
   }
 }
 module.exports = {
