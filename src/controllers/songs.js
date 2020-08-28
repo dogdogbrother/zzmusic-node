@@ -7,11 +7,12 @@ const getFileName = path =>{
   const pathArr = path.split('/')
   return pathArr[pathArr.length - 1]
 }
+
 class SongCtl {
   // 上传歌曲文件
   async uploadSong(ctx) {
-    const {file} = ctx.req.files['file']
-    ctx.body = file.path
+    const { path } = ctx.req.files['file']
+    ctx.body = path
   }
   // 上传歌曲封面
   async uploadCover(ctx) {
@@ -21,30 +22,32 @@ class SongCtl {
   // 上传真正的歌曲和歌手信息
   async song(ctx) {
     ctx.verifyParams({
-      song: { type: 'string', required: true },
+      songName: { type: 'string', required: true },
       singer: { type: 'string', required: true },
+      songPath: { type: 'string', required: true }
     })
-    const { song, singer, cover } = ctx.request.body
-    // 这里差个问题，就是如果文件不存在了(有可能因为太久没操作临时文件删除了)，就报错
+    const { songPath, coverPath, ...surplus } = ctx.request.body
+    // 这里差个优化，就是如果文件不存在了(有可能因为太久没操作临时文件删除了)，就报错
 
     // 把文件送到 /data/music-store/下即可
-    await fse.move(song, '/data/music-store')
-    if (cover) {
-      fse.move(song, '/data/cover-store')
+    await fse.move(songPath, `/data/music-store/${getFileName(songPath)}`)
+    if (coverPath) {
+      fse.move(coverPath, `/data/cover-store/${getFileName(coverPath)}`)
     }
+
     const result = await Song.create({
-      song: `http://49.233.185.168:3001/music-store/${getFileName(song)}`,
-      singer,
-      cover: cover ? `http://49.233.185.168:3001/cover-store/${getFileName(cover)}` : ''
+      songPath: `http://49.233.185.168:3003/music-store/${getFileName(songPath)}`,
+      coverPath: coverPath ? `http://49.233.185.168:3003/cover-store/${getFileName(coverPath)}` : '',
+      ...surplus
     })
     ctx.body = result
   }
 
   async list(ctx) {
     const songList = await Song.findAll({
-      attributes: ['song', 'singer'],
+      attributes: ['songName', 'singer', 'coverPath', 'songPath', 'album', 'id'],
       where: {
-        song: ctx.params.key
+        songName: ctx.params.key
       },
     })
     ctx.body = songList

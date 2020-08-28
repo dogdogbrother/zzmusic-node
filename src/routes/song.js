@@ -8,7 +8,7 @@ const router = new Router({prefix:'/song'})
 router.post('/upload-song', loginCheck, koaFrom(), uploadSong)
 router.post('/upload-cover', loginCheck, koaFrom(), uploadCover)
 
-router.post('/song', loginCheck, song)
+router.post('/', loginCheck, song)
 router.get('/list/:key', list)
 
 module.exports = router
