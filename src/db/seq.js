@@ -4,8 +4,7 @@ const { isProd } = require('../utils/env')
 const { host, user, password, database } = MYSQL_CONF
 const conf = {
   host,
-  dialect: 'mysql',
-  charset: 'utf8mb4'
+  dialect: 'mysql'
 }
 
 // 线上环境，使用连接池

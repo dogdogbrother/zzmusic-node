@@ -44,6 +44,7 @@ class SongCtl {
   }
 
   async list(ctx) {
+    console.log(ctx.params.key);
     const songList = await Song.findAll({
       attributes: ['songName', 'singer', 'coverPath', 'songPath', 'album', 'id'],
       where: {
