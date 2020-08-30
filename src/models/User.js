@@ -2,6 +2,10 @@ const seq = require('../db/seq')
 const { STRING } = require('../db/types')
 
 const User = seq.define('user', {
+  id: {
+    type: STRING,
+    primaryKey: true
+  },
   userName: {
     type: STRING,
     allowNull: false,

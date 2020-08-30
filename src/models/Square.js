@@ -3,7 +3,7 @@ const { STRING, INTEGER, ENUM } = require('../db/types')
 
 const Square = seq.define('square', {
   userId: {
-    type: INTEGER,
+    type: STRING,
     allowNull: false,
     comment: '关联的用户id'
   },

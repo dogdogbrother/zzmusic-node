@@ -1,7 +1,8 @@
-const User = require('../models/User');
+const { User, Like } = require('../models/index');
 const doCrypto = require('../utils/cryp')
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const uuid = require('node-uuid');
 class UsersCtl {
     // 登陆
     async login(ctx) {
@@ -50,6 +51,7 @@ class UsersCtl {
         }
       }
       const result = await User.create({
+        id: uuid.v1(),
         userName,
         password: doCrypto(password),
         nickName,
@@ -69,7 +71,29 @@ class UsersCtl {
     }
     // 获取用户信息
     async info(ctx) {
-      ctx.body = ctx.session.info
+      const user = await User.findOne({
+        where: {
+          id: ctx.session.info.id
+        }
+      })
+      if (!user) {
+        return delete ctx.session.info
+      }
+      ctx.session.info = user
+      // 这里要操作下，把用户喜欢的歌曲的id组成数组给用户
+      const likeSongs = await Like.findAll({
+        attributes: ['id'],
+        where: {
+          likes: {
+            [Op.like]: '%'+ user.id +'%'
+          }
+        }
+      })
+      console.log(likeSongs);
+      ctx.body = {
+        ...user,
+        likes: likeSongs.map(song => song.id)
+      }
     }
     // 退出登陆
     async logout(ctx) {

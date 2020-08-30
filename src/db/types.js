@@ -6,5 +6,6 @@ module.exports = {
     TEXT: Sequelize.TEXT,
     INTEGER: Sequelize.INTEGER,
     BOOLEAN: Sequelize.BOOLEAN,
-    ENUM: Sequelize.ENUM
+    ENUM: Sequelize.ENUM,
+    BIGINT: Sequelize.BIGINT
 }
