@@ -18,8 +18,16 @@ class UsersCtl {
         }
       })
       if (user) {
+        const likeSongs = await Like.findAll({
+          attributes: ['id'],
+          where: {
+            likes: {
+              [Op.like]: '%'+ user.id +'%'
+            }
+          }
+        })
         ctx.session.info = user
-        ctx.body = user
+        ctx.body = { ...user.dataValues, likes: likeSongs.map(song => song.id) }
       } else {
         return ctx.throw(403, '账户名或者密码错误')
       }
@@ -89,9 +97,8 @@ class UsersCtl {
           }
         }
       })
-      console.log(likeSongs);
       ctx.body = {
-        ...user,
+        ...user.dataValues,
         likes: likeSongs.map(song => song.id)
       }
     }
