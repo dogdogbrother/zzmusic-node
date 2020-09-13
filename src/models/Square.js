@@ -17,6 +17,11 @@ const Square = seq.define('square', {
     allowNull: false,
     comment: '动态内容'
   },
+  image: {
+    type: STRING,
+    allowNull: true,
+    comment: '动态图片'
+  },
   songId: {
     type: INTEGER,
     allowNull: true,  // 可以不传，如果用户是发动态就不用写
