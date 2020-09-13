@@ -28,7 +28,7 @@ class SquareCtl {
     }
     if (ctx.request.body.image) {
       const uid = uuid.v1()
-      var path = `./${uid}.png`
+      var path = `/data/cover-store/${uid}.png`
       var base64 = ctx.request.body.image.replace(/^data:image\/\w+;base64,/, "");
       var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
       await fse.writeFile(path, dataBuffer).then(res => {
