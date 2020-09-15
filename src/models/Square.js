@@ -26,6 +26,12 @@ const Square = seq.define('square', {
     type: INTEGER,
     allowNull: true,  // 可以不传，如果用户是发动态就不用写
     comment: '歌曲id'
+  },
+  comment: {
+    type: INTEGER,
+    allowNull: true,  // 可以不传，如果用户是发动态就不用写
+    comment: '点赞数量计数',
+    default: 0
   }
 })
 
