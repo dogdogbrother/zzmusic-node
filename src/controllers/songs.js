@@ -30,7 +30,7 @@ class SongCtl {
         singer: common.artist || '',  // 待优化，可以操作数组 artists
         album: common.album || ''
       }
-      if (common.picture[0]) {  // 如果存在的话，代表歌曲文件有封面
+      if (common.picture && common.picture.length) {  // 如果存在的话，代表歌曲文件有封面
         await fse.writeFile(`/data/cover-store/${uid}${common.picture[0].description || '.jpg'}`,common.picture[0].data)
         resBody.coverPath = `http://49.233.185.168:3003/cover-store/${uid}${common.picture[0].description || '.jpg'}`
       }
@@ -60,12 +60,23 @@ class SongCtl {
 
     // 把文件送到 /data/music-store/下即可
     await fse.move(songPath, `/data/music-store/${getFileName(songPath)}`)
-    if (coverPath) {
-      fse.move(coverPath, `/data/cover-store/${getFileName(coverPath)}`)
+    if (coverPath) {  // 封面有可能是自己上传的，也有可能是文件自己带的，处理逻辑不一样
+      if (coverPath.search('http://49.233.185.168:3003/cover-store/') > -1) { // 已经在cover文件夹里面了，不需要再操作了
+        
+      } else {
+        fse.move(coverPath, `/data/cover-store/${getFileName(coverPath)}`)
+      }
+    }
+    const coverType = (coverPath) => {
+      if (coverPath.search('http://49.233.185.168:3003/cover-store/') > -1) {
+        return coverPath
+      } else {
+        return `http://49.233.185.168:3003/cover-store/${getFileName(coverPath)}`
+      }
     }
     const result = await Song.create({
       songPath: `http://49.233.185.168:3003/music-store/${getFileName(songPath)}`,
-      coverPath: coverPath ? `http://49.233.185.168:3003/cover-store/${getFileName(coverPath)}` : '',
+      coverPath: coverPath ? coverType(coverPath) : '',
       ...surplus
     })
     // 存好了还要操作广场model,这里对歌曲名做了个处理，放的是歌曲的时间戳，前端拿到后会替换掉
