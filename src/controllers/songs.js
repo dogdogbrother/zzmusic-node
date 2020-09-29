@@ -25,14 +25,15 @@ class SongCtl {
       const uid = uuid.v1()
       await fse.writeFile(`./${uid}${common.picture[0].description}`,common.picture[0].data)
       const resBody = {
-        path: newPath,
+        songPath: newPath,
         songName: common.title || '',
         singer: common.artist || '',  // 待优化，可以操作数组 artists
         album: common.album || ''
       }
       if (common.picture[0]) {  // 如果存在的话，代表歌曲文件有封面
-        await fse.writeFile(`/data/cover-store/${uid}${common.picture[0].description || '.jpg'}`,common.picture[0].data)
-        resBody.coverPath = `http://49.233.185.168:3003/cover-store/${uid}${common.picture[0].description || '.jpg'}`
+        await fse.writeFile(`/tmp/${uid}${common.picture[0].description || '.jpg'}`,common.picture[0].data)
+        resBody.coverPath = `/tmp/${uid}${common.picture[0].description || '.jpg'}`
+        resBody.coverBuffer = common.picture[0].data
       }
       ctx.body = resBody
     } else {
