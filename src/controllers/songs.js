@@ -31,9 +31,8 @@ class SongCtl {
         album: common.album || ''
       }
       if (common.picture[0]) {  // 如果存在的话，代表歌曲文件有封面
-        await fse.writeFile(`/tmp/${uid}${common.picture[0].description || '.jpg'}`,common.picture[0].data)
-        resBody.coverPath = `/tmp/${uid}${common.picture[0].description || '.jpg'}`
-        resBody.coverBuffer = common.picture[0].data
+        await fse.writeFile(`/data/cover-store/${uid}${common.picture[0].description || '.jpg'}`,common.picture[0].data)
+        resBody.coverPath = `http://49.233.185.168:3003/cover-store/${uid}${common.picture[0].description || '.jpg'}`
       }
       ctx.body = resBody
     } else {
