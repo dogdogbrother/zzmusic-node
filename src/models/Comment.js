@@ -5,7 +5,7 @@
  *    3. 对2级的评论做回复评论，多一个被回复人id(外键)
  */
 const seq = require('../db/seq')
-const { STRING } = require('../db/types')
+const { STRING, INTEGER } = require('../db/types')
 
 const comment = seq.define('comment', {
   content: {
@@ -19,17 +19,17 @@ const comment = seq.define('comment', {
     comment: '评论用户id'
   },
   squareId: {
-    type: STRING,
+    type: INTEGER,
     allowNull: false,
     comment: '广场动态id'
   },
   rootCommentId: {
-    type: STRING,
+    type: INTEGER,
     allowNull: true,
     comment: '二级评论必有的根目录id'
   },
   replyUserId: {
-    type: STRING,
+    type: INTEGER,
     allowNull: true,
     comment: '二级评论中回复了用户，必有此id'
   }
