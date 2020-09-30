@@ -23,7 +23,6 @@ class SongCtl {
     const { common } = await mm.parseFile(newPath)
     if (common) {
       const uid = uuid.v1()
-      await fse.writeFile(`./${uid}${common.picture[0].description}`,common.picture[0].data)
       const resBody = {
         songPath: newPath,
         songName: common.title || '',
