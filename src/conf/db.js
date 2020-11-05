@@ -6,7 +6,6 @@ const REDIS_CONF = {
 }
 
 let MYSQL_CONF = {
-  host: 'localhost',
   user: 'root',
   password: 'wojiaoWH.110',
   port: '3306',
@@ -15,7 +14,6 @@ let MYSQL_CONF = {
 
 if (isProd) {
   MYSQL_CONF = {
-    host: 'localhost',
     user: 'root',
     password: 'Mysql_123456',
     port: '3306',
