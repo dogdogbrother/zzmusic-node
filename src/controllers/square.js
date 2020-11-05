@@ -28,11 +28,11 @@ class SquareCtl {
     }
     if (ctx.request.body.image) {
       const uid = uuid.v1()
-      var path = `/data/cover-store/${uid}.png`
+      var path = `/data/image-store/cover/${uid}.png`
       var base64 = ctx.request.body.image.replace(/^data:image\/\w+;base64,/, "");
       var dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
       await fse.writeFile(path, dataBuffer).then(res => {
-        data.image = `http://49.233.185.168:3003/cover-store/${uid}.png`
+        data.image = `http://49.233.185.168:3003/image-store/cover/${uid}.png`
       })
     }
     const dynamic = await Square.create(data)

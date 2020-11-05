@@ -30,8 +30,8 @@ class SongCtl {
         album: common.album || ''
       }
       if (common.picture && common.picture.length) {  // 如果存在的话，代表歌曲文件有封面
-        await fse.writeFile(`/data/cover-store/${uid}${common.picture[0].description || '.jpg'}`,common.picture[0].data)
-        resBody.coverPath = `http://49.233.185.168:3003/cover-store/${uid}${common.picture[0].description || '.jpg'}`
+        await fse.writeFile(`/data/image-store/cover/${uid}${common.picture[0].description || '.jpg'}`,common.picture[0].data)
+        resBody.coverPath = `http://49.233.185.168:3003/image-store/cover/${uid}${common.picture[0].description || '.jpg'}`
       }
       ctx.body = resBody
     } else {
@@ -60,17 +60,17 @@ class SongCtl {
     // 把文件送到 /data/music-store/下即可
     await fse.move(songPath, `/data/music-store/${getFileName(songPath)}`)
     if (coverPath) {  // 封面有可能是自己上传的，也有可能是文件自己带的，处理逻辑不一样
-      if (coverPath.search('http://49.233.185.168:3003/cover-store/') > -1) { // 已经在cover文件夹里面了，不需要再操作了
+      if (coverPath.search('http://49.233.185.168:3003/image-store/cover/') > -1) { // 已经在cover文件夹里面了，不需要再操作了
         
       } else {
-        fse.move(coverPath, `/data/cover-store/${getFileName(coverPath)}`)
+        fse.move(coverPath, `/data/image-store/cover/${getFileName(coverPath)}`)
       }
     }
     const coverType = (coverPath) => {
-      if (coverPath.search('http://49.233.185.168:3003/cover-store/') > -1) {
+      if (coverPath.search('http://49.233.185.168:3003/image-store/cover/') > -1) {
         return coverPath
       } else {
-        return `http://49.233.185.168:3003/cover-store/${getFileName(coverPath)}`
+        return `http://49.233.185.168:3003/image-store/cover/${getFileName(coverPath)}`
       }
     }
     const result = await Song.create({
