@@ -53,9 +53,23 @@ class SongCtl {
       singer: { type: 'string', required: true },
       songPath: { type: 'string', required: true }
     })
-    const { songPath, coverPath, ...surplus } = ctx.request.body
+    const { songPath, coverPath, isRepetition, ...surplus } = ctx.request.body
     const { id } = ctx.session.info
     // 这里差个优化，就是如果文件不存在了(有可能因为太久没操作临时文件删除了)，就报错
+
+    // 当用户未传参数 isRepetition,代表是未确认上传歌曲状态
+    // 根据用户名差,如果有这个歌曲了,就告诉用户找到的歌曲具体信息,问他是否确认上传
+    if (!isRepetition) {
+      const findSongList = await Song.findAll({
+        attributes: ['songName', 'singer', 'coverPath', 'songPath', 'album'],
+        where: {
+          name: surplus.songName
+        }
+      })
+      if (findSongList.length) {
+        return ctx.body = findSongList
+      }
+    }
 
     // 把文件送到 /data/music-store/下即可
     await fse.move(songPath, `/data/music-store/${getFileName(songPath)}`)
