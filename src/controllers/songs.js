@@ -63,7 +63,7 @@ class SongCtl {
       const findSongList = await Song.findAll({
         attributes: ['songName', 'singer', 'coverPath', 'songPath', 'album'],
         where: {
-          name: surplus.songName
+          songName: surplus.songName
         }
       })
       if (findSongList.length) {
