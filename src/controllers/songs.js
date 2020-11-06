@@ -61,7 +61,7 @@ class SongCtl {
     // 根据用户名差,如果有这个歌曲了,就告诉用户找到的歌曲具体信息,问他是否确认上传
     if (!isRepetition) {
       const findSongList = await Song.findAll({
-        attributes: ['songName', 'singer', 'coverPath', 'songPath', 'album'],
+        attributes: ['songName', 'singer', 'coverPath', 'songPath', 'album', 'id'],
         where: {
           songName: surplus.songName
         }
