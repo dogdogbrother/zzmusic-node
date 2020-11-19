@@ -5,6 +5,6 @@ const router = new Router({prefix:'/comment'})
 
 router.get('/:squareId', list)
 router.post('/:squareId', loginCheck, comment)
-router.post('/data', loginCheck, test) // 测试,稍后删除
+router.get('/data', loginCheck, test) // 测试,稍后删除
 
 module.exports = router
