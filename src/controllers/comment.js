@@ -1,7 +1,7 @@
 const { Comment, User, Square } = require('../models/index');
 
 class CommenCtr {
-  async test() {
+  async test(ctx) {
     ctx.body = {
       errCode: 0,
       errMsg: "",
