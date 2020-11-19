@@ -2,7 +2,7 @@ const { Comment, User, Square } = require('../models/index');
 
 class CommenCtr {
   async test(ctx) {
-    ctx.body = {
+    const data = {
       errCode: 0,
       errMsg: "",
       data: {
@@ -24,6 +24,7 @@ class CommenCtr {
         women: []
       }
     }
+    ctx.body = data
   }
   // 拿到该广场动态的全部评论，然后根据rootCommentId设置层级。
   async list(ctx) {
