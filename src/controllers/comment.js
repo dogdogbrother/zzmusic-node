@@ -2,7 +2,7 @@ const { Comment, User, Square } = require('../models/index');
 
 class CommenCtr {
   // 测试首页数据
-  async home() {
+  async home(ctx) {
     const data = {
       errCode: 0,
       errMsg: "",
