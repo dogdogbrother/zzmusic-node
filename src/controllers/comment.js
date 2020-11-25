@@ -1,9 +1,86 @@
 const { Comment, User, Square } = require('../models/index');
 
 class CommenCtr {
+  // 测试首页数据
+  async home() {
+    const data = {
+      errCode: 0,
+      errMsg: "",
+      data: {
+        banner: [],
+        women: [],
+        man: [
+          {
+            authType: "0",
+            bookAuthor: " ",
+            bookCategoryId: "1002",
+            bookCategoryName: "玄幻",
+            bookChannel: "100",
+            bookCover: "http://file.lingyun5.com/coverAlias/775076381196289/jypJMEJ5.jpg",
+            bookGrade: "9.90",
+            bookId: "775076381196289",
+            bookKeyWords: null,
+            bookLevel: "S",
+            bookName: "至尊剑帝",
+            bookProtagonist: "叶玄,叶灵",
+            bookStatus: "1",
+            bookSummary: "叶玄：吾为，剑道至尊，故谓，剑帝！",
+            bookWords: "5932663",
+            chapterAuditPassNum: "1734",
+            chapterPrice: null,
+            extensionChapterId: null,
+            extensionChapterName: null,
+            extensionChapterSort: null,
+            finishStatus: "0",
+            id: "8735",
+            lastChapterName: "第一千七百四十章：做人不能忘本！",
+            lastChapterTime: "2020-11-23 09:50:00",
+            mastFllowChapterId: null,
+            mastFllowChapterName: null,
+            mastFllowChapterSort: null,
+            payChapterPointSort: "23",
+            priceType: null
+          },
+          {
+            authType: "0",
+            bookAuthor: "北冥小妖",
+            bookCategoryId: "1001",
+            bookCategoryName: "都市",
+            bookChannel: "100",
+            bookCover: "http://file.lingyun5.com/coverAlias/743916821282875/WIdXeSct.jpg",
+            bookGrade: "9.70",
+            bookId: "743916821282875",
+            bookKeyWords: null,
+            bookLevel: "S",
+            bookName: "都市极品猛男",
+            bookProtagonist: "罗军",
+            bookStatus: "1",
+            bookSummary: "罗军是一名光荣的小保安，也是最牛的小保安，没有之一！繁华都市里，罗军以超强的身手和非凡的智慧如鱼得水。敌人强猛，以拳破之。敌人狡诈，以智慧破之。奈何，离异女业主的美丽成熟，冰山总裁妹妹智慧无双，警花妹妹的英姿飒爽，她们所交织的情网袭杀而来时，罗军的拳与智慧都失去了作用？万丈红尘，我破不开！",
+            bookWords: "9221976",
+            chapterAuditPassNum: "2907",
+            chapterPrice: null,
+            extensionChapterId: null,
+            extensionChapterName: null,
+            extensionChapterSort: null,
+            finishStatus: "0",
+            id: "725",
+            lastChapterName: "明天休息",
+            lastChapterTime: "2019-11-28 16:50:38",
+            mastFllowChapterId: null,
+            mastFllowChapterName: null,
+            mastFllowChapterSort: null,
+            payChapterPointSort: "19",
+            priceType: null
+          }
+        ]
+      }
+    }
+
+    ctx.body = data
+  }
+  // 测试bookId
   async test(ctx) {
     const { bookId } =  ctx.request.query
-    console.log(bookId);
     // 775076381196289 是至尊剑客
     // 743916821282875 是都市极品猛男
     let data = {
