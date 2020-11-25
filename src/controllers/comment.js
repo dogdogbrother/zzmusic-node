@@ -2,6 +2,7 @@ const { Comment, User, Square } = require('../models/index');
 
 class CommenCtr {
   async test(ctx) {
+    console.log(ctx.params);
     const { bookId } =  ctx.params
     console.log(bookId);
     const data = {
