@@ -2,7 +2,8 @@ const { Comment, User, Square } = require('../models/index');
 
 class CommenCtr {
   async test(ctx) {
-    console.log("我要测下测试测试");
+    const { bookId } =  ctx.params
+    console.log(bookId);
     const data = {
       errCode: 0,
       errMsg: "",
