@@ -1,5 +1,5 @@
 const seq = require('../db/seq')
-const { STRING } = require('../db/types')
+const { STRING, ENUM } = require('../db/types')
 
 const User = seq.define('user', {
   id: {
@@ -27,6 +27,19 @@ const User = seq.define('user', {
     type: STRING,
     allowNull: false,
     comment: '头像地址'
+  },
+  gender: {
+    type: ENUM,
+    allowNull: false,
+    default: "2",
+    values: ["0", "1", "2"],
+    comment: '性别,默认为2,保密'
+  },
+  characterSignature: {
+    type: STRING,
+    allowNull: false,
+    default: '',
+    comment: '个人签名'
   }
 }, {
   defaultScope: {
